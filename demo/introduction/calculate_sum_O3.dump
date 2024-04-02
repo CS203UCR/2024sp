@@ -1,0 +1,156 @@
+
+calculate_sum_O3.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <calculate_sum>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	85 f6                	test   %esi,%esi
+   6:	0f 84 c4 00 00 00    	je     d0 <calculate_sum+0xd0>
+   c:	8d 46 ff             	lea    -0x1(%rsi),%eax
+   f:	83 f8 03             	cmp    $0x3,%eax
+  12:	0f 86 d9 00 00 00    	jbe    f1 <calculate_sum+0xf1>
+  18:	89 f1                	mov    %esi,%ecx
+  1a:	66 0f 6e e2          	movd   %edx,%xmm4
+  1e:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  22:	48 89 f8             	mov    %rdi,%rax
+  25:	c1 e9 02             	shr    $0x2,%ecx
+  28:	66 0f 6f 2d 00 00 00 	movdqa 0x0(%rip),%xmm5        # 30 <calculate_sum+0x30>
+  2f:	00 
+  30:	66 0f 70 f4 00       	pshufd $0x0,%xmm4,%xmm6
+  35:	66 0f ef e4          	pxor   %xmm4,%xmm4
+  39:	48 c1 e1 04          	shl    $0x4,%rcx
+  3d:	48 01 f9             	add    %rdi,%rcx
+  40:	f3 0f 6f 38          	movdqu (%rax),%xmm7
+  44:	66 0f 6f c6          	movdqa %xmm6,%xmm0
+  48:	66 0f 6f d4          	movdqa %xmm4,%xmm2
+  4c:	48 83 c0 10          	add    $0x10,%rax
+  50:	66 0f 66 c7          	pcmpgtd %xmm7,%xmm0
+  54:	66 0f df c5          	pandn  %xmm5,%xmm0
+  58:	66 0f 66 d0          	pcmpgtd %xmm0,%xmm2
+  5c:	66 0f 6f d8          	movdqa %xmm0,%xmm3
+  60:	66 0f 62 da          	punpckldq %xmm2,%xmm3
+  64:	66 0f 6a c2          	punpckhdq %xmm2,%xmm0
+  68:	66 0f d4 cb          	paddq  %xmm3,%xmm1
+  6c:	66 0f d4 c8          	paddq  %xmm0,%xmm1
+  70:	48 39 c8             	cmp    %rcx,%rax
+  73:	75 cb                	jne    40 <calculate_sum+0x40>
+  75:	66 0f 6f c1          	movdqa %xmm1,%xmm0
+  79:	89 f1                	mov    %esi,%ecx
+  7b:	66 0f 73 d8 08       	psrldq $0x8,%xmm0
+  80:	83 e1 fc             	and    $0xfffffffc,%ecx
+  83:	66 0f d4 c1          	paddq  %xmm1,%xmm0
+  87:	66 48 0f 7e c0       	movq   %xmm0,%rax
+  8c:	40 f6 c6 03          	test   $0x3,%sil
+  90:	74 5e                	je     f0 <calculate_sum+0xf0>
+  92:	41 89 c8             	mov    %ecx,%r8d
+  95:	42 39 14 87          	cmp    %edx,(%rdi,%r8,4)
+  99:	7d 3d                	jge    d8 <calculate_sum+0xd8>
+  9b:	44 8d 41 01          	lea    0x1(%rcx),%r8d
+  9f:	41 39 f0             	cmp    %esi,%r8d
+  a2:	73 2e                	jae    d2 <calculate_sum+0xd2>
+  a4:	42 3b 14 87          	cmp    (%rdi,%r8,4),%edx
+  a8:	7e 36                	jle    e0 <calculate_sum+0xe0>
+  aa:	44 8d 41 02          	lea    0x2(%rcx),%r8d
+  ae:	44 39 c6             	cmp    %r8d,%esi
+  b1:	76 1f                	jbe    d2 <calculate_sum+0xd2>
+  b3:	42 3b 14 87          	cmp    (%rdi,%r8,4),%edx
+  b7:	7f 04                	jg     bd <calculate_sum+0xbd>
+  b9:	48 83 c0 01          	add    $0x1,%rax
+  bd:	83 c1 03             	add    $0x3,%ecx
+  c0:	39 ce                	cmp    %ecx,%esi
+  c2:	76 0e                	jbe    d2 <calculate_sum+0xd2>
+  c4:	3b 14 8f             	cmp    (%rdi,%rcx,4),%edx
+  c7:	7f 09                	jg     d2 <calculate_sum+0xd2>
+  c9:	48 83 c0 01          	add    $0x1,%rax
+  cd:	c3                   	retq   
+  ce:	66 90                	xchg   %ax,%ax
+  d0:	31 c0                	xor    %eax,%eax
+  d2:	c3                   	retq   
+  d3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  d8:	48 83 c0 01          	add    $0x1,%rax
+  dc:	eb bd                	jmp    9b <calculate_sum+0x9b>
+  de:	66 90                	xchg   %ax,%ax
+  e0:	48 83 c0 01          	add    $0x1,%rax
+  e4:	eb c4                	jmp    aa <calculate_sum+0xaa>
+  e6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  ed:	00 00 00 
+  f0:	c3                   	retq   
+  f1:	31 c9                	xor    %ecx,%ecx
+  f3:	31 c0                	xor    %eax,%eax
+  f5:	eb 9b                	jmp    92 <calculate_sum+0x92>
+
+Disassembly of section .rodata.cst16:
+
+0000000000000000 <.LC0>:
+   0:	01 00                	add    %eax,(%rax)
+   2:	00 00                	add    %al,(%rax)
+   4:	01 00                	add    %eax,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	01 00                	add    %eax,(%rax)
+   a:	00 00                	add    %al,(%rax)
+   c:	01 00                	add    %eax,(%rax)
+	...
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <calculate_sum+0x79>
+   b:	74 75                	je     82 <calculate_sum+0x82>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 34 2e             	cs xor $0x2e,%al
+  12:	30 2d 31 75 62 75    	xor    %ch,0x75627531(%rip)        # 75627549 <calculate_sum+0x75627549>
+  18:	6e                   	outsb  %ds:(%rsi),(%dx)
+  19:	74 75                	je     90 <calculate_sum+0x90>
+  1b:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1e:	30 2e                	xor    %ch,(%rsi)
+  20:	30 34 2e             	xor    %dh,(%rsi,%rbp,1)
+  23:	31 29                	xor    %ebp,(%rcx)
+  25:	20 39                	and    %bh,(%rcx)
+  27:	2e 34 2e             	cs xor $0x2e,%al
+  2a:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...
+
+Disassembly of section .eh_frame:
+
+0000000000000000 <.eh_frame>:
+   0:	14 00                	adc    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	00 00                	add    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	01 7a 52             	add    %edi,0x52(%rdx)
+   b:	00 01                	add    %al,(%rcx)
+   d:	78 10                	js     1f <.eh_frame+0x1f>
+   f:	01 1b                	add    %ebx,(%rbx)
+  11:	0c 07                	or     $0x7,%al
+  13:	08 90 01 00 00 14    	or     %dl,0x14000001(%rax)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 1c 00             	add    %bl,(%rax,%rax,1)
+  1e:	00 00                	add    %al,(%rax)
+  20:	00 00                	add    %al,(%rax)
+  22:	00 00                	add    %al,(%rax)
+  24:	f7 00 00 00 00 00    	testl  $0x0,(%rax)
+  2a:	00 00                	add    %al,(%rax)
+  2c:	00 00                	add    %al,(%rax)
+	...
