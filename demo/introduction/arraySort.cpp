@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     // generate data
 //    const unsigned arraySize = 262144;
     int arraySize = atoi(argv[1]);
-    int *data = new int[arraySize];
+    int data[arraySize];
     long long sum = 0;
 
     int iterations = atoi(argv[2]);
